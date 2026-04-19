@@ -7,10 +7,10 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-# --- 1. CONFIGURATION & STYLING ---
+#STYLING
 st.set_page_config(page_title="Wheat Disease Detector", layout="wide", page_icon="🌾")
 
-# Custom CSS for UI improvement and visibility
+# CSS
 st.markdown("""
     <style>
     .main { background-color: #f8f9fa; }
@@ -27,7 +27,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- 2. EXPERT KNOWLEDGE DATABASE ---
+# EXPERT KNOWLEDGE DATABASE
 DISEASE_GUIDE = {
     "Yellow Rust": {
         "danger": "Critical",
@@ -50,7 +50,7 @@ DISEASE_GUIDE = {
 }
 
 
-# --- 3. CORE LOGIC (AI & EMAIL) ---
+# AI & EMAIL
 @st.cache_resource
 def load_trained_model():
     try:
@@ -97,7 +97,7 @@ def send_forwarded_email(user_name, user_email, user_msg, subject):
         return False
 
 
-# --- 4. NAVIGATION & SIDEBAR ---
+# NAVIGATION & SIDEBARS
 with st.sidebar:
     st.title("🌾 WheatSense AI")
     page = st.radio("Navigation", ["Scanner", "Expert Assistant", "Contact Team"])
@@ -109,11 +109,10 @@ with st.sidebar:
     * **Siddhartha**
     * **Sanjit**
     """)
-    # System Version box removed as requested
 
 model = load_trained_model()
 
-# --- 5. SCANNER PAGE ---
+# SCANNER PAGE
 if page == "Scanner":
     st.title("🌾 Precision Diagnostic Scanner")
     col1, col2 = st.columns([1, 1])
@@ -137,20 +136,18 @@ if page == "Scanner":
             else:
                 st.success("Result: Healthy Crop Detected")
 
-# --- 6. KNOWLEDGE BOT PAGE ---
+# KNOWLEDGE BOT PAGE
 elif page == "Expert Assistant":
     st.title("🤖 Expert Knowledge Bot")
     st.subheader("General FAQs")
     c1, c2 = st.columns(2)
     with c1:
         if st.button("How accurate is the AI?"):
-            # Fixed text color to black for visibility
             st.markdown(
                 '<div class="expert-card"><b>Answer:</b> The YOLOv11 engine is optimized for high precision, but should always be paired with field verification.</div>',
                 unsafe_allow_html=True)
     with c2:
         if st.button("Supported Varieties?"):
-            # Fixed text color to black for visibility
             st.markdown(
                 '<div class="expert-card"><b>Answer:</b> We currently support most common varieties of Spring, Winter, and Durum wheat.</div>',
                 unsafe_allow_html=True)
@@ -165,7 +162,7 @@ elif page == "Expert Assistant":
             for q, a in data["faqs"].items():
                 st.write(f"**{q}**: {a}")
 
-# --- 7. CONTACT PAGE ---
+# CONTACT PAGE
 elif page == "Contact Team":
     st.title("📩 Contact the Expert Panel")
     st.write("Forward messages directly to Rishendra and the team for verification.")
